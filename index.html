@@ -10,114 +10,106 @@
     <style>
         body { 
             font-family: 'Sarabun', sans-serif; 
-            background-color: #1a1a1a; 
+            background-color: #f0f0f0; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             padding: 20px 0;
         }
 
-        /* จำลองหน้ากระดาษ/หน้าจอแอปแบบในรูปที่ 2 */
-        #sgs-report {
+        /* กล่องหลักถอดแบบจากภาพที่ 2 */
+        #sgs-main {
             width: 390px;
             background-color: #ffffff;
-            color: #5d5d5d;
-            position: relative;
-            padding-bottom: 30px;
+            color: #4b5563;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
 
-        /* หัวตารางเลือกเทอม */
-        .term-selector {
-            background-color: #f2f2f2;
+        .dropdown-area {
+            background-color: #f3f4f6;
             margin: 15px;
-            padding: 10px 15px;
+            padding: 10px 12px;
             border-radius: 4px;
             font-size: 14px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            border: 1px solid #e0e0e0;
+            color: #374151;
+            border: 0.5px solid #e5e7eb;
         }
 
-        /* ตารางวิชา */
-        .grade-table { width: 100%; border-collapse: collapse; }
-        .grade-table th {
-            color: #9e9e7e; /* สีเขียวขี้ม้าอ่อนๆ แบบในรูป */
-            font-size: 13px;
-            font-weight: 500;
-            padding: 8px 10px;
-            text-align: left;
-            border-bottom: 1px solid #eeeeee;
+        table { width: 100%; border-collapse: collapse; }
+        th { 
+            color: #a3a3a3; 
+            font-size: 12px; 
+            font-weight: 500; 
+            padding: 10px 12px; 
+            text-align: left; 
+            border-bottom: 0.5px solid #f3f4f6;
         }
-        .grade-table td {
-            padding: 12px 10px;
-            font-size: 13.5px;
-            border-bottom: 1px solid #f9f9f9;
-        }
+        td { padding: 12px; font-size: 14px; border-bottom: 0.5px solid #f9fafb; color: #1f2937; }
 
-        /* ช่องกรอกเกรดแบบเนียนๆ */
-        .grade-select {
-            appearance: none;
-            background: #fff9e6;
-            color: #333;
-            font-weight: bold;
-            width: 35px;
+        .grade-input-box {
+            background: #fff;
+            color: #111827;
+            font-weight: 700;
+            width: 40px;
             text-align: center;
-            border: none;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
             outline: none;
-            cursor: pointer;
         }
 
-        /* ตารางสรุปด้านล่าง */
-        .summary-container { padding: 0 15px; margin-top: 15px; }
-        .summary-table { width: 100%; font-size: 11.5px; margin-bottom: 15px; border-top: 1px solid #eee; }
-        .summary-table th { background: transparent; color: #999; padding: 10px 2px; font-weight: 400; text-align: center; border-bottom: 1px solid #eee; }
-        .summary-table td { text-align: center; padding: 8px 2px; border-bottom: 1px solid #f5f5f5; color: #666; }
+        /* ส่วนสรุปผลเลียนแบบเป๊ะๆ */
+        .summary-wrapper { padding: 15px; background: #fff; }
+        .stat-table { width: 100%; font-size: 12px; color: #6b7280; border-top: 0.5px solid #eee; }
+        .stat-table th { background: transparent; color: #9ca3af; padding: 8px 2px; font-weight: 400; text-align: center; }
+        .stat-table td { text-align: center; padding: 8px 2px; color: #4b5563; }
 
-        .gpa-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-top: 1px solid #eee; }
-        .gpa-val { font-size: 24px; font-weight: bold; color: #444; }
+        .gpa-section { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid #f3f4f6; }
+        .gpa-label { color: #9ca3af; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; }
+        .gpa-value { font-size: 28px; font-weight: 800; color: #111827; }
         
-        .rank-info { display: flex; justify-content: space-between; font-size: 12px; padding: 5px 0; color: #888; border-top: 1px solid #f9f9f9; }
-        .rank-val { font-weight: bold; color: #555; }
+        .rank-box { display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; color: #9ca3af; }
+        .rank-bold { font-weight: 700; color: #374151; }
 
-        .btn-capture {
-            margin-top: 20px;
-            background: #eab308;
+        .btn-save {
+            margin-top: 25px;
+            background: #374151;
             color: white;
-            padding: 10px 25px;
-            border-radius: 5px;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div id="sgs-report">
-        <div class="term-selector">
-            <span>ปีที่ 1 ภาคเรียนที่ 2</span>
-            <span style="font-size: 10px;">⇅</span>
+    <div id="sgs-main">
+        <div class="dropdown-area">
+            <span>ปีที่ 1 ภาคเรียนที่ 2 (2568)</span>
+            <span>⇅</span>
         </div>
 
-        <table class="grade-table">
+        <table>
             <thead>
                 <tr>
-                    <th style="width: 20%;">รหัสวิชา</th>
-                    <th style="width: 55%;">รายวิชา</th>
-                    <th style="width: 12%; text-align: center;">นก.</th>
-                    <th style="width: 13%; text-align: center;">เกรด</th>
+                    <th style="width: 22%">รหัสวิชา</th>
+                    <th style="width: 50%">รายวิชา</th>
+                    <th style="width: 13%" class="text-center">นก.</th>
+                    <th style="width: 15%" class="text-center">เกรด</th>
                 </tr>
             </thead>
-            <tbody id="subject-list">
+            <tbody id="grade-body">
                 </tbody>
         </table>
 
-        <div class="summary-container">
-            <table class="summary-table">
+        <div class="summary-wrapper">
+            <table class="stat-table">
                 <thead>
                     <tr>
-                        <th style="text-align: left;">ประเภทวิชา</th>
-                        <th>ที่เรียน/ที่ได้</th>
+                        <th class="text-left">ประเภทวิชา</th>
+                        <th>ที่เรียน/ได้</th>
                         <th>เฉลี่ย</th>
                         <th>สะสม</th>
                         <th>เฉลี่ยสะสม</th>
@@ -125,138 +117,130 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="text-align: left;">พื้นฐาน</td>
-                        <td id="base-cr-sum">10.0/10.0</td>
-                        <td id="base-gpa-sum" style="font-weight: bold;">4.00</td>
+                        <td class="text-left font-bold">พื้นฐาน</td>
+                        <td id="base-cr-display">10.0/10.0</td>
+                        <td id="base-gpa-display" class="font-bold">4.00</td>
                         <td>44.0/44.0</td>
                         <td>3.99</td>
                     </tr>
                     <tr>
-                        <td style="text-align: left;">เพิ่มเติม</td>
-                        <td id="add-cr-sum">6.0/6.0</td>
-                        <td id="add-gpa-sum" style="font-weight: bold;">4.00</td>
+                        <td class="text-left font-bold">เพิ่มเติม</td>
+                        <td id="add-cr-display">6.0/6.0</td>
+                        <td id="add-gpa-display" class="font-bold">4.00</td>
                         <td>19.0/19.0</td>
                         <td>3.94</td>
-                    </tr>
-                    <tr style="color: #999;">
-                        <td style="text-align: left;">กิจกรรม(ชม.)</td>
-                        <td>60/60</td>
-                        <td>-</td>
-                        <td>224/224</td>
-                        <td>-</td>
                     </tr>
                 </tbody>
             </table>
 
-            <div class="gpa-row">
-                <span style="color: #bbb; font-size: 13px; font-weight: bold;">GPA</span>
-                <span class="gpa-val" id="total-gpa">4.00</span>
+            <div class="gpa-section mt-4">
+                <span class="gpa-label">GPA</span>
+                <span class="gpa-value" id="final-gpa-display">4.00</span>
             </div>
-            
-            <div class="rank-info">
+
+            <div class="rank-box border-t border-gray-50 pt-2">
                 <span>อันดับที่/ห้อง</span>
-                <span class="rank-val">1/40</span>
+                <span class="rank-bold">1 / 40</span>
             </div>
-            <div class="rank-info">
+            <div class="rank-box">
                 <span>อันดับที่/ระดับ</span>
-                <span class="rank-val">12/350</span>
+                <span class="rank-bold">12 / 350</span>
             </div>
         </div>
 
-        <div style="height: 20px;"></div>
+        <div class="py-4 text-center text-[10px] text-gray-300 font-bold uppercase tracking-widest">
+            โรงเรียนศรีเมืองวิทยาคาร
+        </div>
     </div>
 
-    <button class="btn-capture" onclick="takeShot()">Save as Image</button>
+    <button class="btn-save" onclick="generateImage()">บันทึกรูปภาพ</button>
 
     <script>
-        // ข้อมูลจากภาพตารางเรียน ม.1/6 (ภาพที่ 1)
-        const subjects = [
-            { id: 'ท21102', name: 'ภาษาไทย 2', cr: 1.5, type: 'base' },
-            { id: 'ค21102', name: 'คณิตศาสตร์พื้นฐาน 2', cr: 1.5, type: 'base' },
-            { id: 'ว21102', name: 'วิทยาศาสตร์ 2', cr: 1.5, type: 'base' },
-            { id: 'ส21103', name: 'สังคมศึกษา 2', cr: 1.0, type: 'base' },
-            { id: 'ส21104', name: 'ประวัติศาสตร์ 2', cr: 0.5, type: 'base' },
-            { id: 'พ21103', name: 'สุขศึกษา 2', cr: 0.5, type: 'base' },
-            { id: 'พ21104', name: 'พลศึกษา 2', cr: 0.5, type: 'base' },
-            { id: 'ศ21103', name: 'ศิลปะ 2 (ทัศนศิลป์)', cr: 0.5, type: 'base' },
-            { id: 'ศ21104', name: 'นาฏศิลป์ 2', cr: 0.5, type: 'base' },
-            { id: 'อ21102', name: 'ภาษาอังกฤษพื้นฐาน 2', cr: 1.5, type: 'base' },
-            { id: 'ง21102', name: 'การงานอาชีพ 2', cr: 0.5, type: 'base' },
-            { id: 'ค20212', name: 'คณิตศาสตร์เพิ่มเติม 2', cr: 1.0, type: 'add' },
-            { id: 'อ20202', name: 'ภาษาอังกฤษเพิ่มเติม 2', cr: 1.0, type: 'add' },
-            { id: 'EN20222', name: 'Intensive English 2', cr: 1.0, type: 'add' },
-            { id: 'ง20271', name: 'คหกรรม 1', cr: 1.0, type: 'add' },
+        // รายวิชาจริงจากตารางเรียน
+        const data = [
+            { id: 'ท21102', name: 'ภาษาไทย', cr: 1.5, type: 'base' },
+            { id: 'ค21102', name: 'คณิตศาสตร์พื้นฐาน', cr: 1.5, type: 'base' },
+            { id: 'ว21102', name: 'วิทยาศาสตร์', cr: 1.5, type: 'base' },
+            { id: 'ส21103', name: 'สังคมศึกษา', cr: 1.0, type: 'base' },
+            { id: 'ส21104', name: 'ประวัติศาสตร์', cr: 0.5, type: 'base' },
+            { id: 'พ21103', name: 'สุขศึกษา', cr: 0.5, type: 'base' },
+            { id: 'พ21104', name: 'พลศึกษา', cr: 0.5, type: 'base' },
+            { id: 'ศ21103', name: 'ศิลปะ', cr: 0.5, type: 'base' },
+            { id: 'ศ21104', name: 'นาฏศิลป์', cr: 0.5, type: 'base' },
+            { id: 'อ21102', name: 'ภาษาอังกฤษพื้นฐาน', cr: 1.5, type: 'base' },
+            { id: 'ง21102', name: 'การงานอาชีพ', cr: 0.5, type: 'base' },
+            { id: 'ค20212', name: 'คณิตเพิ่มเติม', cr: 1.0, type: 'add' },
+            { id: 'อ20202', name: 'อังกฤษเพิ่มเติม', cr: 1.0, type: 'add' },
+            { id: 'EN20222', name: 'Intensive English', cr: 1.0, type: 'add' },
+            { id: 'ง20271', name: 'คหกรรม', cr: 1.0, type: 'add' },
             { id: 'ก20272', name: 'คอมพิวเตอร์เพิ่มเติม', cr: 0.5, type: 'add' },
             { id: 'ก21920', name: 'วิชาเพิ่มเติมพิเศษ', cr: 0.5, type: 'add' }
         ];
 
-        subjects.forEach(s => s.grade = 4.0);
+        data.forEach(d => d.grade = 4.0);
 
-        function updateUI() {
-            const list = document.getElementById('subject-list');
-            list.innerHTML = '';
+        function render() {
+            const body = document.getElementById('grade-body');
+            body.innerHTML = '';
             let bCr = 0, bPt = 0, aCr = 0, aPt = 0;
 
-            subjects.forEach((s, i) => {
-                if(s.type === 'base') { bCr += s.cr; bPt += (s.cr * s.grade); }
-                else { aCr += s.cr; aPt += (s.cr * s.grade); }
+            data.forEach((d, i) => {
+                if(d.type === 'base') { bCr += d.cr; bPt += (d.cr * d.grade); }
+                else { aCr += d.cr; aPt += (d.cr * d.grade); }
 
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td style="color: #999; font-size: 11px;">${s.id}</td>
-                    <td>${s.name}</td>
-                    <td style="text-align: center; color: #999;">${s.cr.toFixed(1)}</td>
-                    <td style="text-align: center;">
-                        <select class="grade-select" onchange="changeGrade(${i}, this.value)">
-                            <option value="4" ${s.grade==4?'selected':''}>4</option>
-                            <option value="3.5" ${s.grade==3.5?'selected':''}>3.5</option>
-                            <option value="3" ${s.grade==3?'selected':''}>3</option>
-                            <option value="2.5" ${s.grade==2.5?'selected':''}>2.5</option>
-                            <option value="2" ${s.grade==2?'selected':''}>2</option>
-                            <option value="1.5" ${s.grade==1.5?'selected':''}>1.5</option>
-                            <option value="1" ${s.grade==1?'selected':''}>1</option>
-                            <option value="0" ${s.grade==0?'selected':''}>0</option>
+                const row = `<tr>
+                    <td class="text-gray-400 font-mono text-[11px]">${d.id}</td>
+                    <td class="font-medium">${d.name}</td>
+                    <td class="text-center text-gray-400">${d.cr.toFixed(1)}</td>
+                    <td class="text-center">
+                        <select class="grade-input-box" onchange="setGrade(${i}, this.value)">
+                            <option value="4" ${d.grade==4?'selected':''}>4</option>
+                            <option value="3.5" ${d.grade==3.5?'selected':''}>3.5</option>
+                            <option value="3" ${d.grade==3?'selected':''}>3</option>
+                            <option value="2.5" ${d.grade==2.5?'selected':''}>2.5</option>
+                            <option value="2" ${d.grade==2?'selected':''}>2</option>
+                            <option value="1.5" ${d.grade==1.5?'selected':''}>1.5</option>
+                            <option value="1" ${d.grade==1?'selected':''}>1</option>
+                            <option value="0" ${d.grade==0?'selected':''}>0</option>
                         </select>
                     </td>
-                `;
-                list.appendChild(tr);
+                </tr>`;
+                body.innerHTML += row;
             });
 
-            document.getElementById('base-cr-sum').innerText = `${bCr.toFixed(1)}/${bCr.toFixed(1)}`;
-            document.getElementById('base-gpa-sum').innerText = (bPt/bCr).toFixed(2);
-            document.getElementById('add-cr-sum').innerText = `${aCr.toFixed(1)}/${aCr.toFixed(1)}`;
-            document.getElementById('add-gpa-sum').innerText = (aPt/aCr).toFixed(2);
-            document.getElementById('total-gpa').innerText = ((bPt+aPt)/(bCr+aCr)).toFixed(2);
+            document.getElementById('base-cr-display').innerText = `${bCr.toFixed(1)}/${bCr.toFixed(1)}`;
+            document.getElementById('base-gpa-display').innerText = (bPt/bCr).toFixed(2);
+            document.getElementById('add-cr-display').innerText = `${aCr.toFixed(1)}/${aCr.toFixed(1)}`;
+            document.getElementById('add-gpa-display').innerText = (aPt/aCr).toFixed(2);
+            document.getElementById('final-gpa-display').innerText = ((bPt+aPt)/(bCr+aCr)).toFixed(2);
         }
 
-        function changeGrade(i, v) { subjects[i].grade = parseFloat(v); updateUI(); }
+        function setGrade(i, v) { data[i].grade = parseFloat(v); render(); }
 
-        async function takeShot() {
-            const area = document.getElementById('sgs-report');
-            
-            // เปลี่ยน Select เป็น Text เพื่อความเนียน 100%
+        async function generateImage() {
+            const area = document.getElementById('sgs-main');
             const selects = area.querySelectorAll('select');
-            const backups = [];
+            const stores = [];
+            
             selects.forEach(s => {
-                const val = s.value;
                 const span = document.createElement('span');
-                span.innerText = val;
+                span.innerText = s.value;
                 span.style.fontWeight = "bold";
-                backups.push({s, span, parent: s.parentNode});
+                stores.push({s, span, p: s.parentNode});
                 s.style.display = 'none';
                 s.parentNode.appendChild(span);
             });
 
             const canvas = await html2canvas(area, { scale: 3 });
             const link = document.createElement('a');
-            link.download = 'SGS_Final_Grade.png';
+            link.download = 'SGS_Grade.png';
             link.href = canvas.toDataURL();
             link.click();
 
-            backups.forEach(b => { b.span.remove(); b.s.style.display = 'inline-block'; });
+            stores.forEach(b => { b.span.remove(); b.s.style.display = 'inline-block'; });
         }
 
-        updateUI();
+        render();
     </script>
 </body>
 </html>
