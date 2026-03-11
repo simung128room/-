@@ -3,98 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGS Grade Simulation - Sri Muang Wittayakarn</title>
+    <title>Grade Report - Sri Muang Wittayakarn</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         body { 
             font-family: 'Sarabun', sans-serif; 
-            background-color: #f0f2f5; 
+            background-color: #f4f4f4; 
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        #report-card {
-            width: 390px;
+        /* คอนเทนเนอร์หลัก */
+        #grade-card {
+            width: 380px;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            overflow: hidden;
-            color: #444;
+            border-radius: 4px; /* ปรับให้ดูเป็นทางการขึ้น */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            color: #333;
         }
 
-        .header-section {
+        .header-box {
             padding: 15px;
             border-bottom: 1px solid #eee;
         }
 
-        .dropdown-box {
-            background: #f5f5f5;
-            padding: 8px 12px;
-            border-radius: 6px;
+        .dropdown-style {
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
             font-size: 14px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            color: #666;
-            margin-bottom: 15px;
+            color: #555;
+            margin-bottom: 10px;
+            border: 1px solid #eee;
         }
 
         table { width: 100%; border-collapse: collapse; }
         th { 
             text-align: left; 
-            font-size: 13px; 
-            color: #888; 
+            font-size: 12px; 
+            color: #999; 
             font-weight: 500; 
-            padding: 8px 5px;
+            padding: 10px 5px;
             border-bottom: 1px solid #f0f0f0;
         }
-        td { padding: 10px 5px; border-bottom: 1px solid #f9f9f9; font-size: 13px; }
+        td { padding: 12px 5px; border-bottom: 1px solid #fafafa; font-size: 13px; }
 
-        .grade-pill {
-            background: #fdf5e6;
-            color: #b8860b;
+        /* ส่วนเลือกเกรด */
+        .grade-select {
+            background: transparent;
+            color: #333;
             font-weight: bold;
+            border: 1px solid #ddd;
             border-radius: 4px;
-            padding: 2px 8px;
-            border: none;
-            width: 45px;
+            padding: 2px 5px;
+            width: 50px;
             text-align: center;
             cursor: pointer;
         }
 
-        .summary-table th { background: transparent; color: #777; font-size: 11px; text-align: center; }
-        .summary-table td { text-align: center; font-size: 12px; padding: 5px; }
-
-        .btn-save {
-            margin-top: 20px;
-            background: #2d3436;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: 0.3s;
+        .summary-section {
+            padding: 15px;
+            background: #fff;
         }
-        .btn-save:hover { transform: scale(1.05); background: #000; }
+
+        .summary-table { width: 100%; font-size: 11px; color: #666; }
+        .summary-table th { background: #fafafa; padding: 5px; text-align: center; }
+        .summary-table td { text-align: center; padding: 8px 5px; border-bottom: 1px solid #f5f5f5; }
+
+        .btn-action {
+            margin-top: 20px;
+            background: #444;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
-    <div id="report-card">
-        <div class="px-4 py-2 flex justify-between items-center text-[12px] font-bold">
-            <spa>แฟนผมน่ารัก</spa></span>
-            <div class="flex gap-1">
-                <span>GITHUB</span><span></span>
-            </div>
-        </div>
-
-        <div class="header-section">
-            <div class="dropdown-box">
-                <span>ม.1 ภาคเรียนที่ 2 (2568)</span>
-                <span>⇅</span>
+    <div id="grade-card">
+        <div class="header-box">
+            <div class="dropdown-style">
+                <span>ปีที่ 1 ภาคเรียนที่ 2</span>
+                <span>▼</span>
             </div>
 
             <table>
@@ -106,15 +105,15 @@
                         <th width="15%" class="text-center">เกรด</th>
                     </tr>
                 </thead>
-                <tbody id="subject-list">
+                <tbody id="list-body">
                     </tbody>
             </table>
         </div>
 
-        <div class="p-4 bg-white">
-            <table class="summary-table mb-4">
+        <div class="summary-section">
+            <table class="summary-table">
                 <thead>
-                    <tr class="border-b">
+                    <tr>
                         <th class="text-left">ประเภทวิชา</th>
                         <th>ที่เรียน/ที่ได้</th>
                         <th>เฉลี่ย</th>
@@ -124,48 +123,43 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="text-left font-medium">พื้นฐาน</td>
+                        <td class="text-left font-bold">พื้นฐาน</td>
                         <td id="base-cr">10.0/10.0</td>
-                        <td id="base-gpa">4.00</td>
+                        <td id="base-gpa" class="font-bold">4.00</td>
                         <td>44.0/44.0</td>
                         <td>3.99</td>
                     </tr>
-                    <tr class="text-slate-400">
-                        <td class="text-left font-medium">เพิ่มเติม</td>
+                    <tr>
+                        <td class="text-left font-bold">เพิ่มเติม</td>
                         <td id="add-cr">6.0/6.0</td>
-                        <td id="add-gpa">4.00</td>
+                        <td id="add-gpa" class="font-bold">4.00</td>
                         <td>19.0/19.0</td>
                         <td>3.94</td>
                     </tr>
                 </tbody>
             </table>
 
-            <div class="border-t pt-3 flex flex-col gap-2">
-                <div class="flex justify-between items-center">
+            <div class="mt-4 pt-4 border-t border-gray-100">
+                <div class="flex justify-between items-center mb-2">
                     <span class="text-gray-400 text-sm">GPA</span>
-                    <span class="text-2xl font-black" id="total-gpa">4.00</span>
+                    <span class="text-3xl font-black text-gray-800" id="total-gpa">4.00</span>
                 </div>
-                <div class="flex justify-between text-sm border-t border-gray-50 pt-2">
+                <div class="flex justify-between text-[13px] py-1 border-t border-gray-50">
                     <span class="text-gray-400">อันดับที่/ห้อง</span>
                     <span class="font-bold">1 / 40</span>
                 </div>
-                <div class="flex justify-between text-sm border-t border-gray-50 pt-2">
+                <div class="flex justify-between text-[13px] py-1 border-t border-gray-50">
                     <span class="text-gray-400">อันดับที่/ระดับ</span>
                     <span class="font-bold">12 / 350</span>
                 </div>
             </div>
         </div>
-
-        <div class="bg-gray-50 py-3 text-center text-[10px] text-gray-300 font-bold uppercase tracking-widest">
-            โรงเรียนศรีเมืองวิทยาคาร
-        </div>
     </div>
 
-    <button class="btn-save" onclick="downloadImage()">Download PNG Report</button>
-    <p class="text-[11px] text-gray-400 mt-3">*สามารถคลิกที่ตัวเลขเกรดเพื่อแก้ไขได้*</p>
+    <button class="btn-action" onclick="saveImage()">บันทึกเป็นรูปภาพ (.png)</button>
 
     <script>
-        // ข้อมูลอ้างอิงจากตารางเรียน (ภาพที่ 1)
+        // รายวิชาอ้างอิงจากตารางเรียนจริง
         const subjects = [
             { id: 'ท21102', name: 'ภาษาไทย', cr: 1.5, type: 'base' },
             { id: 'ค21102', name: 'คณิตศาสตร์พื้นฐาน', cr: 1.5, type: 'base' },
@@ -179,91 +173,83 @@
             { id: 'อ21102', name: 'ภาษาอังกฤษพื้นฐาน', cr: 1.5, type: 'base' },
             { id: 'ง21102', name: 'การงานอาชีพ', cr: 0.5, type: 'base' },
             { id: 'ค20212', name: 'คณิตศาสตร์เพิ่มเติม', cr: 1.0, type: 'add' },
-            { id: 'อ20202', name: 'ภาษาอังกฤษเพิ่มเติม', cr: 1.0, type: 'add' },
+            { id: 'อ20202', name: 'อังกฤษเพิ่มเติม', cr: 1.0, type: 'add' },
             { id: 'EN20222', name: 'Intensive English', cr: 1.0, type: 'add' },
             { id: 'ง20271', name: 'คหกรรม', cr: 1.0, type: 'add' },
-            { id: 'ก20272', name: 'คอมพิวเตอร์เพิ่มเติม', cr: 0.5, type: 'add' },
-            { id: 'ก21920', name: 'วิชาเพิ่มเติมอื่นๆ', cr: 0.5, type: 'add' }
+            { id: 'ก20272', name: 'วิชาเพิ่มเติม 1', cr: 0.5, type: 'add' },
+            { id: 'ก21920', name: 'วิชาเพิ่มเติม 2', cr: 0.5, type: 'add' }
         ];
 
-        // ตั้งค่าเกรดเริ่มต้นเป็น 4.0 ทุกวิชา
         subjects.forEach(s => s.grade = 4.0);
 
-        function calculate() {
-            const list = document.getElementById('subject-list');
-            list.innerHTML = '';
+        function update() {
+            const body = document.getElementById('list-body');
+            body.innerHTML = '';
             
-            let baseCrTotal = 0, basePt = 0;
-            let addCrTotal = 0, addPt = 0;
+            let bCr = 0, bPt = 0, aCr = 0, aPt = 0;
 
             subjects.forEach((s, i) => {
-                if(s.type === 'base') { baseCrTotal += s.cr; basePt += (s.cr * s.grade); }
-                else { addCrTotal += s.cr; addPt += (s.cr * s.grade); }
+                if(s.type === 'base') { bCr += s.cr; bPt += (s.cr * s.grade); }
+                else { aCr += s.cr; aPt += (s.cr * s.grade); }
 
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td class="text-gray-400 font-mono text-[11px]">${s.id}</td>
-                    <td class="font-medium">${s.name}</td>
+                    <td class="font-medium text-gray-700">${s.name}</td>
                     <td class="text-center text-gray-400">${s.cr.toFixed(1)}</td>
                     <td class="text-center">
-                        <select class="grade-pill" onchange="updateGrade(${i}, this.value)">
-                            <option value="4" ${s.grade==4?'selected':''}>4.0</option>
+                        <select class="grade-select" onchange="changeGrade(${i}, this.value)">
+                            <option value="4" ${s.grade==4?'selected':''}>4</option>
                             <option value="3.5" ${s.grade==3.5?'selected':''}>3.5</option>
-                            <option value="3" ${s.grade==3?'selected':''}>3.0</option>
+                            <option value="3" ${s.grade==3?'selected':''}>3</option>
                             <option value="2.5" ${s.grade==2.5?'selected':''}>2.5</option>
-                            <option value="2" ${s.grade==2?'selected':''}>2.0</option>
-                            <option value="1.5" ${s.grade==1.5?'selected':''}>1.5</option>
-                            <option value="1" ${s.grade==1?'selected':''}>1.0</option>
-                            <option value="0" ${s.grade==0?'selected':''}>0.0</option>
+                            <option value="2" ${s.grade==2?'selected':''}>2</option>
+                            <option value="1" ${s.grade==1?'selected':''}>1</option>
+                            <option value="0" ${s.grade==0?'selected':''}>0</option>
                         </select>
                     </td>
                 `;
-                list.appendChild(tr);
+                body.appendChild(tr);
             });
 
-            const bGPA = (basePt / baseCrTotal).toFixed(2);
-            const aGPA = (addPt / addCrTotal).toFixed(2);
-            const totalGPA = ((basePt + addPt) / (baseCrTotal + addCrTotal)).toFixed(2);
-
-            document.getElementById('base-cr').innerText = `${baseCrTotal.toFixed(1)}/${baseCrTotal.toFixed(1)}`;
-            document.getElementById('base-gpa').innerText = bGPA;
-            document.getElementById('add-cr').innerText = `${addCrTotal.toFixed(1)}/${addCrTotal.toFixed(1)}`;
-            document.getElementById('add-gpa').innerText = aGPA;
-            document.getElementById('total-gpa').innerText = totalGPA;
+            document.getElementById('base-cr').innerText = `${bCr.toFixed(1)}/${bCr.toFixed(1)}`;
+            document.getElementById('base-gpa').innerText = (bPt/bCr).toFixed(2);
+            document.getElementById('add-cr').innerText = `${aCr.toFixed(1)}/${aCr.toFixed(1)}`;
+            document.getElementById('add-gpa').innerText = (aPt/aCr).toFixed(2);
+            document.getElementById('total-gpa').innerText = ((bPt+aPt)/(bCr+aCr)).toFixed(2);
         }
 
-        function updateGrade(i, val) {
-            subjects[i].grade = parseFloat(val);
-            calculate();
-        }
+        function changeGrade(i, v) { subjects[i].grade = parseFloat(v); update(); }
 
-        async function downloadImage() {
-            const report = document.getElementById('report-card');
+        async function saveImage() {
+            const card = document.getElementById('grade-card');
             
-            // เปลี่ยน Select ให้เป็น Text ก่อนถ่ายรูปเพื่อความสมจริง
-            const selects = report.querySelectorAll('select');
-            const originalValues = [];
+            // ซ่อน Select และโชว์เป็นข้อความแทนก่อนถ่ายรูป
+            const selects = card.querySelectorAll('.grade-select');
+            const backups = [];
             selects.forEach(s => {
-                originalValues.push({el: s, val: s.value, parent: s.parentNode});
                 const span = document.createElement('span');
-                span.innerText = parseFloat(s.value).toFixed(1);
-                span.className = 'font-bold text-amber-600';
+                span.innerText = s.value;
+                span.className = 'font-bold text-gray-800';
+                backups.push({s, span, parent: s.parentNode});
                 s.style.display = 'none';
                 s.parentNode.appendChild(span);
             });
 
-            const canvas = await html2canvas(report, { scale: 3 });
+            const canvas = await html2canvas(card, { scale: 3 });
             const link = document.createElement('a');
-            link.download = 'My_Grade_Report.png';
+            link.download = 'SGS_Report.png';
             link.href = canvas.toDataURL();
             link.click();
 
             // คืนค่า Select กลับมา
-            report.querySelectorAll('span.font-bold.text-amber-600').forEach(sp => sp.remove());
-            selects.forEach(s => s.style.display = 'inline-block');
+            backups.forEach(b => {
+                b.span.remove();
+                b.s.style.display = 'inline-block';
+            });
         }
 
-        calculate();
+        update();
     </script>
 </body>
 </html>
