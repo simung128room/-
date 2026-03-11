@@ -151,16 +151,27 @@
     <script>
         // ข้อมูลวิชาตามรูป 1
         const subjects = [
-            { id: 'ท21102', name: 'ภาษาไทย', credit: 1.5, grade: 4.0 },
-            { id: 'ค21102', name: 'คณิตศาสตร์', credit: 1.5, grade: 3.5 },
-            { id: 'ว21102', name: 'วิทยาศาสตร์', credit: 1.5, grade: 4.0 },
-            { id: 'ส21103', name: 'สังคมศึกษา', credit: 1.0, grade: 4.0 },
-            { id: 'ส21104', name: 'ประวัติศาสตร์', credit: 0.5, grade: 3.5 },
-            { id: 'พ21103', name: 'สุขศึกษา', credit: 0.5, grade: 4.0 },
-            { id: 'ศ21103', name: 'ศิลปะ', credit: 1.0, grade: 4.0 },
-            { id: 'อ21102', name: 'ภาษาอังกฤษ', credit: 1.5, grade: 4.0 },
-            { id: 'ค20212', name: 'คณิตเพิ่มเติม', credit: 1.0, grade: 4.0 }
-        ];
+[
+    { id: 'ท21102', name: 'ภาษาไทย', credit: 1.5, grade: 4.0 },
+    { id: 'ค21102', name: 'คณิตศาสตร์', credit: 1.5, grade: 3.5 },
+    { id: 'ว21102', name: 'วิทยาศาสตร์', credit: 1.5, grade: 4.0 },
+    { id: 'ส21103', name: 'สังคมศึกษา', credit: 1.0, grade: 4.0 },
+    { id: 'ส21104', name: 'ประวัติศาสตร์', credit: 0.5, grade: 3.5 },
+    { id: 'พ21103', name: 'สุขศึกษา', credit: 0.5, grade: 4.0 },
+    { id: 'ศ21103', name: 'ศิลปะ', credit: 1.0, grade: 4.0 },
+    { id: 'อ21102', name: 'ภาษาอังกฤษ', credit: 1.5, grade: 4.0 },
+    { id: 'ค20212', name: 'คณิตเพิ่มเติม', credit: 1.0, grade: 4.0 },
+    // --- รายวิชาที่ดึงเพิ่มเติมจากในตารางเรียน ---
+    { id: 'พ21104', name: 'พลศึกษา', credit: 0.5, grade: 4.0 },
+    { id: 'ศ21104', name: 'นาฏศิลป์', credit: 0.5, grade: 4.0 },
+    { id: 'อ20202', name: 'ภาษาอังกฤษเพิ่มเติม', credit: 1.0, grade: 4.0 },
+    { id: 'EN20222', name: 'ภาษาอังกฤษ (EN)', credit: 1.0, grade: 4.0 },
+    { id: 'ง21102', name: 'การงานอาชีพ', credit: 0.5, grade: 4.0 },
+    { id: 'ง21103', name: 'การงานอาชีพ (ห้องสมุด)', credit: 0.5, grade: 4.0 },
+    { id: 'ง20271', name: 'คหกรรม', credit: 1.0, grade: 4.0 },
+    { id: 'ก20272', name: 'วิชาเพิ่มเติม (ก20272)', credit: 0.5, grade: 4.0 },
+    { id: 'ก21920', name: 'วิชาเพิ่มเติม (ก21920)', credit: 0.5, grade: 4.0 } 
+    ]
 
         const body = document.getElementById('subject-body');
         const gpaText = document.getElementById('gpa-text');
